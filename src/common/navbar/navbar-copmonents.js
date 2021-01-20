@@ -12,7 +12,7 @@ export const StyledLeftArrow = styled(LeftArrow)`
 `;
 
 export const NavbarContainer = styled.div`
-  border: 1px solid black;
+  border: 1px solid ${colors.primary.opaque(0.6)};
   width: 18rem;
   height: 100%;
   background-color: ${colors.primary.opaque(0.1)};
@@ -45,20 +45,21 @@ export const TopicsContainer = styled.div`
 `;
 
 export const ClosedNavbarContainer = styled.div`
-  border: 1px solid black;
-  width: 5rem;
+  border: 1px solid ${colors.primary.opaque(0.6)};
+  width: 4%;
   height: 100%;
   background-color: ${colors.primary.opaque(0.1)};
   position: fixed;
   top: 0;
   display: flex;
   flex-direction: column;
+  min-width: 3rem;
 `;
 
 export const HamburgerMenu = styled(Menu)`
-align-self: flex-end;
+align-self: center;
   width: 3rem;
   height: 3rem;
-  margin-right: 1rem;
   fill: ${colors.secondary.main};
+  cursor: pointer;
 `;
