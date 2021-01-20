@@ -1,0 +1,68 @@
+name: Deploy to Firebase Hosting on PR
+
+on: 
+  pull_request:
+    branches: [ master ]
+    
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm install
+      - run: npm run build --if-present
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: './build'
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+      # - name: Deploy to netlify
+      #   uses: netlify/actions/cli@master
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
+      #   with:
+      #     args: deploy --dir=build --prod
+      #     secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+    # - uses: actions/checkout@v2
+    # - uses: actions/setup-node@v1
+    #   with:
+    #     node-version: '14'
+    # - run: npm install
+    # - run: npm run build
+    # - uses: jsmrcaga/action-netlify-deploy@master
+    #   with:
+    #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
+    #     NETLIFY_DEPLOY_TO_PROD: true
+  merge-branch:
+    needs: [Deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge staging -> uat
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: master
+          github_token: ${{ github.token }}
