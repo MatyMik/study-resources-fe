@@ -5,6 +5,7 @@ const colors = {
   },
   secondary: {
     main: 'rgb(9, 246, 180)',
+    opaque: (opacity) => `rgba(9, 246, 180, ${opacity})`,
   },
   terciary:
   {

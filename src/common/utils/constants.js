@@ -1,0 +1,2 @@
+export const NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR = 5;
+export const MAXIMUM_NUMBER_OF_TOPICS = 200;
