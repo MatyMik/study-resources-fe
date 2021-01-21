@@ -8,7 +8,6 @@ function* getUploadPdfLinkSaga(action) {
     yield put(uploadPdfStart());
     const { pdfDetails, file } = action;
     const response = yield axios.get('/pdf', { params: { fileName: pdfDetails.fileName } });
-    console.log(response);
     const { url } = response.data;
     const pdfData = { ...pdfDetails, url };
     yield fetch(url, { body: file, method: 'PUT', headers: { 'Content-Type': 'application/pdf' } });

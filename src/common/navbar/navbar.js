@@ -16,7 +16,6 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const topics = ['all -topics here', 'your- first topic'];
   const mappedTopics = topics.map((topic, index) => (index > (NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR - 1) ? null : <NavItem to={`/${createtTopicRoute(topic)}`} onClick={() => setOpen(false)} label={`${topic}`} key={topic} />));
-  // console.log(mappedTopics);
   return (
     open ? (
       <NavbarContainer>
