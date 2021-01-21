@@ -21,13 +21,13 @@ function App() {
   const loading = useSelector((state) => selectLoading(state));
   const [autoLoginStarted, setAutoLoginStarted] = useState(false);
   const history = useHistory();
-  console.log(isLoggedIn);
   const dispatch = useDispatch();
   useEffect(() => {
     setAutoLoginStarted(true);
     if (!isLoggedIn) dispatch(autoLogin(history));
   }, []);
   useEffect(() => {
+    console.log(loading);
     if (autoLoginStarted && !isLoggedIn && !loading) history.push('/auth/login');
   }, [loading]);
   axios.interceptors.request.use((config) => {
