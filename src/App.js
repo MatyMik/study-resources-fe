@@ -40,6 +40,7 @@ function App() {
       {isLoggedIn ? <Navbar /> : null}
       <Switch>
         <Route path="/auth"><Auth /></Route>
+        <GuardedRoute auth={isLoggedIn} path="/" component={Topic} />
         <GuardedRoute auth={isLoggedIn} path="/:topic" component={Topic} />
         <GuardedRoute auth={isLoggedIn} path="/asdf/asdf" component={PdfUploader} />
       </Switch>
