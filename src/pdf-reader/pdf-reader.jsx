@@ -13,7 +13,6 @@ const Pdf = () => {
   // const file = 'https://drive.google.com/file/d/1cUTDL1_DQVB6xgypjC42uEMCcI2NJdsX/view?usp=sharing';
 
   function onDocumentLoadSuccess({ numPages }) {
-    console.log(numPages);
     setNumPages(numPages);
   }
 

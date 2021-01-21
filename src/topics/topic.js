@@ -9,8 +9,6 @@ const Topic = () => {
   const params = useParams();
   const { topic } = params;
 
-  console.log(topic);
-
   const firstPageHandler = () => {
     console.log(topic);
   };

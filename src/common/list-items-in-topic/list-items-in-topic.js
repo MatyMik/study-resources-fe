@@ -6,11 +6,8 @@ const Container = styled.div`
     border: 1px solid black;
 `;
 
-const ListItemsInTopic = () => {
-  useEffect(() => console.log('Rendered'));
-  return (
-    <Container />
-  );
-};
+const ListItemsInTopic = () => (
+  <Container />
+);
 
 export default ListItemsInTopic;
