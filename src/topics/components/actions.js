@@ -26,8 +26,8 @@ const DeleteLink = styled(Delete)`
 
 const Actions = ({ deleteHandler, editHandler }) => (
   <ActionsContainer>
-    <EditLink onclick={editHandler} />
-    <DeleteLink onclick={deleteHandler} />
+    <EditLink onClick={editHandler} />
+    <DeleteLink onClick={deleteHandler} />
   </ActionsContainer>
 );
 
