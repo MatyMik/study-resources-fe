@@ -1,32 +1,40 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import {
+  NavbarContainer,
+  NavbarSection,
+  TopicsContainer,
+  StyledLeftArrow,
+  HamburgerMenu,
+  ClosedNavbarContainer,
+} from './navbar-copmonents';
 import NavItem from './nav-item';
 import { createtTopicRoute } from '../utils/helpers';
-import colors from '../style/colors';
-
-const NavbarContainer = styled.div`
-  border: 1px solid black;
-  display: grid;
-  width: 10rem;
-  height: 100%;
-  background-color: ${colors.primary.opaque(0.1)};
-`;
-
-const NavbarSection = styled.div`
-  color: 
-`;
+import { NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR } from '../utils/constants';
+import NavAllTopicsItem from './navbar-all-topics-item';
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
   const topics = ['all -topics here', 'your- first topic'];
-  const mappedTopics = topics.map((topic, index) => (index > 4 ? null : <NavItem to={`/${createtTopicRoute(topic)}`} label={`${topic}`} />));
+  const mappedTopics = topics.map((topic, index) => (index > (NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR - 1) ? null : <NavItem to={`/${createtTopicRoute(topic)}`} onClick={() => setOpen(false)} label={`${topic}`} key={topic} />));
   // console.log(mappedTopics);
   return (
-    <NavbarContainer>
-      <NavbarSection>Topics</NavbarSection>
-      {mappedTopics}
-      {topics.length > 4 ? <NavItem to="/alltopics" label="See all topics" /> : null}
-      <NavItem to="/sasaf" label="sasaf" />
-    </NavbarContainer>
+    open ? (
+      <NavbarContainer>
+        <StyledLeftArrow onClick={() => setOpen(false)} />
+        <NavbarSection>Topics</NavbarSection>
+        <TopicsContainer numberOfTopics={topics.length}>
+          {mappedTopics}
+          <NavAllTopicsItem onClick={() => setOpen(false)} to="/alltopics" label="See all topics" />
+        </TopicsContainer>
+
+        {topics.length > 4 ? <NavItem to="/alltopics" label="See all topics" /> : null}
+        <NavbarSection>Schedule</NavbarSection>
+      </NavbarContainer>
+    ) : (
+      <ClosedNavbarContainer>
+        <HamburgerMenu onClick={() => setOpen(true)} />
+      </ClosedNavbarContainer>
+    )
   );
 };
 export default Navbar;

@@ -4,7 +4,7 @@ import colors from '../common/style/colors';
 export const Container = styled.div`
     width: 60%;
     margin: 5% auto;
-    background-color: ${colors.primary.opaque(0.1)};
+    background-color: ${colors.primary.opaque};
     border-radius: 10px;
     border: 1px solid #3e09f6;
     position: relative;
@@ -23,7 +23,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
-    color: ${colors.primary.opaque(0.1)};
+    color: ${colors.primary.opaque};
     text-shadow: 0px 4px 1px rgba(0,0,0,0.2);
     text-transform: uppercase;
     overflow: hidden;
@@ -54,7 +54,7 @@ export const Input = styled.input`
     margin: auto;
     border: 1px solid ${(props) => (props.error && props.isTouched ? 'red' : colors.terciary.main)};
 
-    ${(props) => (props.error && props.isTouched && 'color: red;')}
+    ${(props) => (props.error && props.isTouched && `color:${colors.quarter.opaque(0.6)};`)}
     height: 3rem;
     border-radius: 10px;
     &:focus {
@@ -73,7 +73,7 @@ export const Label = styled.label`
 
 export const Button = styled.button`
     background-color: ${colors.terciary.opaque(0.8)};
-    color: ${colors.primary.opaque(0.6)};
+    color: ${colors.primary.opaqueScale(0.6)};
     border: 2px solid ${colors.primary.main};
     align-self: flex-end;
     justify-self: center;
