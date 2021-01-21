@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Arrow } from '../../assets/arrow.svg';
+import { ReactComponent as Add } from '../../assets/add.svg';
 import colors from '../style/colors';
 
-const StyledArrow = styled(Arrow)`
+const StyledAdd = styled(Add)`
 width: 1rem;
 height: 1.25rem;
-fill: ${colors.primary.main};
+fill: ${colors.primary.opaqueScale(0.6)};
 justify-self: center;
 `;
 
@@ -22,27 +22,19 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
   text-align: right;
   font-weight: bold;
   font-size: 1.25rem;
-  color: ${colors.primary.main};
-
-
-  &.${activeClassName} {
-    color:  ${colors.quarter.opaque(0.6)};
-
-    & svg {
-      fill:  ${colors.quarter.opaque(0.6)};
-    }
-  }
-
-  
+  color: ${colors.primary.opaqueScale(0.6)}; 
+  &:hover {
+    font-size: 1.5rem;
+}
 `;
 
-const NavAllTopicsItem = ({ to, label, onClick }) => (
+const NavAddTopicsItem = ({ to, label, onClick }) => (
   <StyledLink to={to} onClick={onClick}>
     {' '}
     {label}
     {' '}
-    <StyledArrow />
+    <StyledAdd />
   </StyledLink>
 );
 
-export default NavAllTopicsItem;
+export default NavAddTopicsItem;

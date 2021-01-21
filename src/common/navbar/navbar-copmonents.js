@@ -12,14 +12,15 @@ export const StyledLeftArrow = styled(LeftArrow)`
 `;
 
 export const NavbarContainer = styled.div`
-  border: 1px solid ${colors.primary.opaque(0.6)};
+  border: 1px solid ${colors.primary.opaqueScale(0.6)};
   width: 18rem;
   height: 100%;
-  background-color: ${colors.primary.opaque(0.1)};
+  background-color: rgb(219,214,234);
   position: fixed;
   top: 0;
   display: flex;
   flex-direction: column;
+  z-index: 0;
 `;
 
 export const NavbarSection = styled.div`
@@ -45,10 +46,10 @@ export const TopicsContainer = styled.div`
 `;
 
 export const ClosedNavbarContainer = styled.div`
-  border: 1px solid ${colors.primary.opaque(0.6)};
+  border: 1px solid ${colors.primary.opaqueScale(0.6)};
   width: 4%;
   height: 100%;
-  background-color: ${colors.primary.opaque(0.1)};
+  background-color: rgb(219,214,234);
   position: fixed;
   top: 0;
   display: flex;

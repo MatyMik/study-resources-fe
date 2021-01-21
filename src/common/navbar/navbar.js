@@ -13,9 +13,9 @@ import { NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR } from '../utils/constants';
 import NavAllTopicsItem from './navbar-all-topics-item';
 
 const Navbar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const topics = ['all -topics here', 'your- first topic'];
-  const mappedTopics = topics.map((topic, index) => (index > (NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR - 1) ? null : <NavItem to={`/${createtTopicRoute(topic)}`} label={`${topic}`} key={topic} />));
+  const mappedTopics = topics.map((topic, index) => (index > (NUMBER_OF_TOPICS_SHOWN_IN_NAVBAR - 1) ? null : <NavItem to={`/${createtTopicRoute(topic)}`} onClick={() => setOpen(false)} label={`${topic}`} key={topic} />));
   // console.log(mappedTopics);
   return (
     open ? (
@@ -24,7 +24,7 @@ const Navbar = () => {
         <NavbarSection>Topics</NavbarSection>
         <TopicsContainer numberOfTopics={topics.length}>
           {mappedTopics}
-          <NavAllTopicsItem to="/alltopics" label="See all topics" />
+          <NavAllTopicsItem onClick={() => setOpen(false)} to="/alltopics" label="See all topics" />
         </TopicsContainer>
 
         {topics.length > 4 ? <NavItem to="/alltopics" label="See all topics" /> : null}
