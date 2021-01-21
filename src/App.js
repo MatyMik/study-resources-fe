@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   withRouter, Switch, Route, useHistory,
 } from 'react-router-dom';
@@ -18,11 +18,16 @@ import GuardedRoute from './common/hoc/auth-guard';
 function App() {
   const token = useSelector((state) => selectJwtToken(state));
   const isLoggedIn = useSelector((state) => selectIsLoggedIn(state));
+  const [autoLoginStarted, setAutoLoginStarted] = useState(false);
   const history = useHistory();
   console.log(isLoggedIn);
   const dispatch = useDispatch();
   useEffect(() => {
+    setAutoLoginStarted(true);
     if (!isLoggedIn) dispatch(autoLogin(history));
+  }, []);
+  useEffect(() => {
+    if (autoLoginStarted && !isLoggedIn) history.push('/auth/login');
   }, []);
   axios.interceptors.request.use((config) => {
     const authHeader = `token=${token}`;
