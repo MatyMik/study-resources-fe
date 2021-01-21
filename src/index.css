@@ -32,3 +32,16 @@ html {
   height: 100%;
   vertical-align: middle;
 }
+
+@media (min-width: 768px) {
+  .main {
+    height: inherit;
+    width: inherit;
+    display: block;
+  }
+
+  .wrapper {
+    display: block;
+    height: inherit;
+  }
+}
