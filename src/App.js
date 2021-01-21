@@ -27,7 +27,6 @@ function App() {
     if (!isLoggedIn) dispatch(autoLogin(history));
   }, []);
   useEffect(() => {
-    console.log(loading);
     if (autoLoginStarted && !isLoggedIn && !loading) history.push('/auth/login');
   }, [loading]);
   axios.interceptors.request.use((config) => {
