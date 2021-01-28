@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import colors from '../../common/style/colors';
+import { ReactComponent as Trash } from '../../assets/trash.svg';
+import { ReactComponent as Add } from '../../assets/add.svg';
+import { ReactComponent as Edit } from '../../assets/edit.svg';
 
 export const Container = styled.div`
   width:85%;
-  margin: 10%;
+  margin: 2% 10%;
   border-left:  1px solid ${colors.primary.main};
   border-right:  1px solid ${colors.primary.main};
   border-bottom:  1px solid ${colors.primary.main};
@@ -29,7 +32,7 @@ export const ItemContainer = styled.div`
     border: 2px solid ${colors.secondary.main};
     border-radius: 5px;
     display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-columns: ${(props) => (props.hasProgressbar ? '3fr 3fr 1fr;' : '6fr 1fr;')}
     height: 2rem;
     align-items: center;
 
@@ -40,6 +43,97 @@ export const ItemContainer = styled.div`
 
 export const ItemTitle = styled.div`
   color: ${colors.primary.main};
-  margin-left: 1rem;
+  margin: 0 1rem;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
+
+export const Title = styled.div`
+    color: ${colors.primary.opaque};
+    text-shadow: 0px 4px 1px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    overflow: hidden;
+    font-family: Nunito;
+    font-size: ${(props) => (props.page === 'resetpassword' ? '2' : '3.125')}rem;
+    font-weight: 900;
+    display: grid;
+    justify-content: center;
+    align-self:center;
+    align-items: center;
+    -webkit-text-stroke: 1px ${colors.primary.main};
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25));
+    text-align: center;
+    margin: 3rem auto 0;
+    position: relative;
+
+    @media (max-width: 940px) {
+        font-size: ${(props) => (props.page === 'resetpassword' ? '1.25' : '1.875')}rem;
+    }
+`;
+
+export const TrashIcon = styled(Trash)`
+    width: 2rem;
+    height: 2rem;
+    fill: ${colors.primary.opaque};
+
+    &:hover {
+      fill: ${colors.primary.opaqueScale(0.6)};
+    }
+`;
+
+export const AddResourceItem = styled.div`
+  opacity: 0.2;  
+  width: 90%;
+    margin: 0.5rem auto;
+    border: 2px solid ${colors.secondary.main};
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 10fr;
+    height: 2rem;
+    align-items: center;
+
+    &:hover {
+      opacity:1;
+    }
+
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr 2fr 2fr;
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: 1fr 2fr 5fr;
+    }
+`;
+
+export const AddIcon = styled(Add)`
+    fill: black;
+    width: 1rem;
+    height: 1rem;
+    justify-self: center;
+`;
+
+export const EditTopic = styled(Edit)`
+width: 2rem;
+    height: 2rem;
+    fill: ${colors.primary.opaque};
+
+    &:hover {
+      fill: ${colors.primary.opaqueScale(0.6)};
+    }
+`;
+
+export const ActionButtonsContainer = styled.div`
+  position: absolute;
+  right: 5%;
+`;
+
+export const EditTitleContainer = styled.div`
+
+`;
+
+export const EditTitleInput = styled.input``;
+
+export const EditTitleButton = styled.div``;
+export const EditTitleCancelButton = styled.div``;

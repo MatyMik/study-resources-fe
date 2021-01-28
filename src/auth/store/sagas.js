@@ -12,8 +12,9 @@ export function* loginSaga(action) {
   try {
     yield put(loginStart());
     const response = yield axios.post('/auth/login', action.authData);
-    const { token } = response.data;
-    yield put(loginSuccess(token));
+    const { token, userId } = response.data;
+    console.log(response.data);
+    yield put(loginSuccess(token, userId));
     action.history.push('/');
   } catch (e) {
     const error = e.response.data.errors;
@@ -72,8 +73,9 @@ export function* autoLoginSaga(action) {
   try {
     yield put(loginStart());
     const response = yield axios.get('/auth/refreshtoken');
-    const { token } = response.data;
-    yield put(refreshTokenSuccess(token));
+    const { token, userId } = response.data;
+    console.log(token);
+    if (token && userId) { yield put(loginSuccess(token, userId)); }
     action.history.push('/');
   } catch (e) {
     const error = e.response.data.errors;

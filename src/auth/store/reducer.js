@@ -5,9 +5,11 @@ const initialState = {
   isLoggedIn: false,
   error: null,
   token: null,
+  userId: null,
 };
 
 const reducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case actionTypes.FORGOT_PASSWORD_START:
     case actionTypes.SIGNUP_START:
@@ -30,6 +32,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
         token: action.token,
         isLoggedIn: true,
+        userId: action.userId,
       };
     case actionTypes.REFRESH_TOKEN_START:
       return state;

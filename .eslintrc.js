@@ -28,5 +28,8 @@ module.exports = {
     'no-nested-ternary': 0,
     'react/jsx-props-no-spreading': 'off',
     'no-underscore-dangle': 0,
+    'react/destructuring-assignment': 0,
+    'no-plusplus': 0,
+    'consistent-return': 0,
   },
 };
