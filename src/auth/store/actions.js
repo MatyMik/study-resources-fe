@@ -7,7 +7,7 @@ export const signup = (authData, history) => ({ type: actionTypes.SIGNUP, authDa
 
 export const loginStart = () => ({ type: actionTypes.LOGIN_START });
 export const loginFail = (error) => ({ type: actionTypes.LOGIN_FAIL, error });
-export const loginSuccess = (token) => ({ type: actionTypes.LOGIN_SUCCESS, token });
+export const loginSuccess = (token, userId) => ({ type: actionTypes.LOGIN_SUCCESS, token, userId });
 export const login = (authData, history) => ({ type: actionTypes.LOGIN, authData, history });
 
 export const resetPasswordStart = () => ({ type: actionTypes.RESET_PASSWORD_START });

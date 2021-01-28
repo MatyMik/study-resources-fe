@@ -13,7 +13,7 @@ const Auth = memo(() => {
   const history = useHistory();
 
   const page = /signup$/.test(location.pathname) ? 'signup' : /login$/.test(location.pathname) ? 'login' : /resetpassword$/.test(location.pathname) ? 'resetpassword' : /forgotpassword$/.test(location.pathname) ? 'forgotpassword' : null;
-  const redirectPage = location.pathname.includes('login') ? '/signup' : '/login';
+  const redirectPage = location.pathname.includes('login') ? '/auth/signup' : '/auth/login';
   const redirectHandler = () => {
     history.push(redirectPage);
   };

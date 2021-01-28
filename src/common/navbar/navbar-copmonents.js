@@ -20,7 +20,7 @@ export const NavbarContainer = styled.div`
   top: 0;
   display: flex;
   flex-direction: column;
-  z-index: 0;
+  z-index: 10;
 `;
 
 export const NavbarSection = styled.div`

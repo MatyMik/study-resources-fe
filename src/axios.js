@@ -30,8 +30,11 @@ axiosInstance.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            originalRequest.headers.Authorization = `Bearer=${token}`;
-            return axiosInstance(originalRequest);
+            if (token) {
+              console.log(token);
+              originalRequest.headers.Authorization = `token=${token}`;
+              return axiosInstance(originalRequest);
+            }
           })
           .catch((err) => Promise.reject(err));
       }
@@ -43,8 +46,9 @@ axiosInstance.interceptors.response.use(
         axiosInstance
           .get('/auth/refreshtoken')
           .then(({ data }) => {
-            axios.defaults.headers.common.Authorization = `Bearer=${data.token}`;
-            originalRequest.headers.Authorization = `Bearer=${data.token}`;
+            console.log(data);
+            axios.defaults.headers.common.Authorization = `token=${data.token}`;
+            originalRequest.headers.Authorization = `token=${data.token}`;
             processQueue(null, data.fooToken);
             resolve(axios(originalRequest));
           })
