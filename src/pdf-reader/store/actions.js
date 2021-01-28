@@ -14,8 +14,9 @@ export const uploadPdfFail = (error) => ({
   error,
 });
 
-export const uploadPdf = (pdfDetails, file) => ({
+export const uploadPdf = (pdfDetails, file, userId) => ({
   type: actionTypes.UPLOAD_PDF,
   pdfDetails,
   file,
+  userId,
 });

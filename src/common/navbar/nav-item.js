@@ -16,12 +16,18 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
   }
 `;
 
-const NavItem = ({ to, label, onClick }) => (
-  <StyledLink to={to} onClick={onClick}>
-    {' '}
-    {label}
-    {' '}
-  </StyledLink>
-);
-
+const NavItem = ({
+  to, label, onClick, topicId, title,
+}) => {
+  const clickHandler = () => {
+    onClick(topicId);
+  };
+  return (
+    <StyledLink to={{ pathname: to, topicProps: { topicId, title } }} onClick={clickHandler}>
+      {' '}
+      {label}
+      {' '}
+    </StyledLink>
+  );
+};
 export default NavItem;

@@ -21,26 +21,31 @@ const RowNumberShow = styled.div`
 `;
 
 const RowNumberSelector = ({
-  totalItems, firstItemOnPage, lastItemOnPage,
-}) => (
-  <RowNumberSelectorContainer>
-    <RowNumberShow>
-      {firstItemOnPage}
-      {' '}
-      -
-      {' '}
-      {lastItemOnPage}
-      {' '}
-      of
-      {' '}
-      {totalItems}
-    </RowNumberShow>
-    <Selector>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="25">25</option>
-    </Selector>
-  </RowNumberSelectorContainer>
-);
+  totalItems, firstItemOnPage, lastItemOnPage, setItemsPerPage, itemsPerPage,
+}) => {
+  const selectItemsPerPage = (event) => {
+    setItemsPerPage(event.target.value);
+  };
+  return (
+    <RowNumberSelectorContainer>
+      <RowNumberShow>
+        {firstItemOnPage}
+        {' '}
+        -
+        {' '}
+        {lastItemOnPage}
+        {' '}
+        of
+        {' '}
+        {totalItems}
+      </RowNumberShow>
+      <Selector value={itemsPerPage} onChange={selectItemsPerPage}>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+      </Selector>
+    </RowNumberSelectorContainer>
+  );
+};
 
 export default RowNumberSelector;
