@@ -4,10 +4,10 @@ import {
 } from './topic-components';
 
 const EditTitleItem = ({
-  editHandler, cancelHandler, title, setTitle,
+  editHandler, cancelHandler, title, updateTitleInComponentHandler,
 }) => (
   <EditTitleContainer>
-    <EditTitleInput value={title} onChange={setTitle} />
+    <EditTitleInput value={title} onChange={updateTitleInComponentHandler} />
     <EditTitleButton onClick={editHandler}>Edit Title</EditTitleButton>
     <EditTitleCancelButton onClick={cancelHandler}>Cancel</EditTitleCancelButton>
   </EditTitleContainer>

@@ -6,6 +6,7 @@ import TopicItemWithProgress from './components/topic-item-with-progress';
 const ListOfResources = ({
   resourceType, topic, resources,
 }) => {
+  console.log(resourceType);
   const history = useHistory();
 
   const addResourceHandler = () => {
@@ -19,6 +20,10 @@ const ListOfResources = ({
       key={resource.id}
       url={resource.url}
       hasProgressbar={resourceType === 'book'}
+      resourceId={resource.id}
+      lastPageRead={resource.lastPageRead}
+      numPages={resource.numPages}
+      archived={resource.archived}
     />
 
   ));

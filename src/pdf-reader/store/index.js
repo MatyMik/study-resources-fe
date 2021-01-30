@@ -1,8 +1,9 @@
 import { takeLatest } from 'redux-saga/effects';
-import updatePdfSaga from './sagas';
+import { uploadPdfSaga, downloadPdfSaga } from './sagas';
 import * as actionTypes from './actionTypes';
 
 const pdfSagas = [
-  takeLatest(actionTypes.UPLOAD_PDF, updatePdfSaga),
+  takeLatest(actionTypes.UPLOAD_PDF, uploadPdfSaga),
+  takeLatest(actionTypes.DOWNLOAD_PDF, downloadPdfSaga),
 ];
 export default pdfSagas;
