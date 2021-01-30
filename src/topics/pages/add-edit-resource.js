@@ -22,7 +22,6 @@ const AddResource = () => {
   const [fileName, setFileName] = useState('');
 
   const handleFileSelection = (event) => {
-    console.log(event);
     const [file] = event.target.files;
     setFileToUpload(file);
     const fr = new FileReader();
@@ -57,6 +56,7 @@ const AddResource = () => {
       title,
       topicId,
       type: 'pdf',
+      url: `${userId}/${title}`,
     };
     const addData = {
       title, type: resourceType, topicId, url: source,

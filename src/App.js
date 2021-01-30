@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { autoLogin } from './auth/store/actions';
-// import PdfReader from './pdf-reader/pdf-reader';
+import PdfReader from './pdf-reader/pdf-reader';
 import PdfUploader from './pdf-reader/pdf-upload';
 import Auth from './auth/pages/auth';
 import './App.css';
@@ -20,11 +20,11 @@ import AddEditResource from './topics/pages/add-edit-resource';
 import AddTopic from './topics/pages/add-topic';
 import AllTopics from './topics/all-topics';
 import { loadAllTopics } from './topics/store/actions';
+import YoutubePlayer from './youtube-player/youtube-player';
 
 let token;
 function App() {
   token = useSelector((state) => selectJwtToken(state));
-  console.log(token);
   const isLoggedIn = useSelector((state) => selectIsLoggedIn(state));
   const userId = useSelector((state) => selectUserId(state));
   const loading = useSelector((state) => selectLoading(state));
@@ -55,6 +55,8 @@ function App() {
         <Route exact path="/alltopics"><AllTopics /></Route>
         <Route path="/add/resource"><AddEditResource /></Route>
         <Route path="/add/topic"><AddTopic /></Route>
+        <GuardedRoute auth={isLoggedIn} path="/resource/book/:pdfId" component={PdfReader} />
+        <GuardedRoute auth={isLoggedIn} path="/resource/youtube/:youtubeId" component={YoutubePlayer} />
         <Route auth={isLoggedIn} path="/:topic" component={Topic} />
         <GuardedRoute auth={isLoggedIn} path="/asdf/asdf" component={PdfUploader} />
         <GuardedRoute auth={isLoggedIn} path="/" component={AllTopics} />

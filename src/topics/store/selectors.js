@@ -34,3 +34,21 @@ export const selectUdemys = createSelector(
   selectTopic,
   (topic) => topic.udemy,
 );
+
+export const selectArchivedArticles = createSelector(
+  selectTopic,
+  (topic) => topic.archivedarticle,
+);
+
+export const selectArchivedBooks = createSelector(
+  selectTopic,
+  (topic) => topic.archivedbook,
+);
+export const selectArchivedYoutubeLinks = createSelector(
+  selectTopic,
+  (topic) => topic.archivedyoutube,
+);
+export const selectArchivedUdemys = createSelector(
+  selectTopic,
+  (topic) => topic.archivedudemy,
+);

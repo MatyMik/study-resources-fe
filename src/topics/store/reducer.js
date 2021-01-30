@@ -8,6 +8,10 @@ const initialState = {
   youtube: [],
   udemy: [],
   topics: [],
+  archivedarticle: [],
+  archivedbook: [],
+  archivedyoutube: [],
+  archivedudemy: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,6 +38,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.EDIT_TOPIC_SUCCESS:
       return { ...state, loading: false, topics: action.topics };
     case actionTypes.ADD_RESOURCE_SUCCESS:
+      return { ...state, loading: false };
     default:
       return state;
   }

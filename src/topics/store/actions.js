@@ -10,13 +10,14 @@ export const loadResourceSuccess = (resourceType, resources) => ({
   resources,
 });
 
-export const loadResource = (resourceType, topicId, history, page, itemsPerPage) => ({
+export const loadResource = (resourceType, topicId, history, page, itemsPerPage, archived) => ({
   type: actionTypes.LOAD_RESOURCE,
   resourceType,
   history,
   topicId,
   page,
   itemsPerPage,
+  archived,
 });
 
 export const addTopicStart = () => ({ type: actionTypes.ADD_TOPIC_START });
@@ -65,4 +66,28 @@ export const editTopic = (topicData, userId) => ({
   type: actionTypes.EDIT_TOPIC,
   topicData,
   userId,
+});
+
+export const updateResourceStart = () => ({ type: actionTypes.UPDATE_RESOURCE_START });
+
+export const updateResourceSuccess = () => ({ type: actionTypes.UPDATE_RESOURCE_SUCCESS });
+
+export const updateResourceFail = (error) => ({ type: actionTypes.UPDATE_RESOURCE_FAIL, error });
+
+export const updateResource = (resourceType, resource) => ({
+  type: actionTypes.UPDATE_RESOURCE,
+  resourceType,
+  resource,
+});
+
+export const deleteResourceStart = () => ({ type: actionTypes.DELETE_RESOURCE_START });
+
+export const deleteResourceSuccess = () => ({ type: actionTypes.DELETE_RESOURCE_SUCCESS });
+
+export const deleteResourceFail = (error) => ({ type: actionTypes.DELETE_RESOURCE_FAIL, error });
+
+export const deleteResource = (resourceType, resourceId) => ({
+  type: actionTypes.DELETE_RESOURCE,
+  resourceType,
+  resourceId,
 });
