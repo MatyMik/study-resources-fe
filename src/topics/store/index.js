@@ -6,6 +6,7 @@ import {
   deleteTopicSaga,
   addResourceSaga,
   editTopicSaga,
+  updateResourceSaga,
 } from './sagas';
 import * as actionTypes from './action-types';
 
@@ -16,5 +17,6 @@ const authSagas = [
   takeLatest(actionTypes.DELETE_TOPIC, deleteTopicSaga),
   takeLatest(actionTypes.ADD_RESOURCE, addResourceSaga),
   takeLatest(actionTypes.EDIT_TOPIC, editTopicSaga),
+  takeLatest(actionTypes.UPDATE_RESOURCE, updateResourceSaga),
 ];
 export default authSagas;

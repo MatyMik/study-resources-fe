@@ -37,7 +37,7 @@ export const ItemContainer = styled.div`
     align-items: center;
 
     @media (min-width: 1200px) {
-      grid-template-columns: 7fr 7fr 2fr;
+      grid-template-columns: ${(props) => (props.hasProgressbar ? '7fr 7fr 2fr;' : '6fr 1fr;')}
     }
 `;
 
@@ -127,13 +127,37 @@ width: 2rem;
 export const ActionButtonsContainer = styled.div`
   position: absolute;
   right: 5%;
+  font-size: 1rem;
+  width: 20%;
 `;
 
 export const EditTitleContainer = styled.div`
-
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
 `;
 
 export const EditTitleInput = styled.input``;
 
-export const EditTitleButton = styled.div``;
-export const EditTitleCancelButton = styled.div``;
+export const EditTitleButton = styled.div`
+  justify-self: center;
+  z-index:1;
+  cursor: pointer;`;
+export const EditTitleCancelButton = styled.div`
+justify-self: center;
+z-index:1;
+cursor: pointer;
+`;
+
+export const ArchiveSelector = styled.div`
+  text-shadow: none;
+    font-family: Nunito;
+    font-weight: 900;
+    -webkit-text-stroke: 0;
+    filter: none;
+  text-decoration: none;
+  color: ${colors.primary.opaque};
+
+    &:hover {
+      color: ${colors.primary.opaqueScale(0.6)};
+    }
+`;

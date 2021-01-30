@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Container, Title, TrashIcon, ActionButtonsContainer, EditTopic,
+  Container, Title, TrashIcon, ActionButtonsContainer, EditTopic, ArchiveSelector,
 } from './components/topic-components';
 import EditTopicSection from './components/edit-title';
 import { deleteTopic, loadResource, editTopic } from './store/actions';
 import { selectUserId } from '../auth/store/selectors';
 import {
   selectArticles, selectBooks, selectYoutubeLinks, selectUdemys, selectLoading,
+  selectArchivedArticles, selectArchivedBooks, selectArchivedYoutubeLinks, selectArchivedUdemys,
 } from './store/selectors';
 import Pagination from './pagination/pagination';
 import ResourceTypeSelector from './components/resource-type-selector';
 import ListOfResources from './list-of-resources';
+// import useSelectResource from './hooks/load-resource-hook';
 import { arrayDeepComparison } from '../common/utils/helpers';
 
 const Topic = (props) => {
@@ -29,6 +31,7 @@ const Topic = (props) => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [editTitleMode, setEditTitleMode] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
+  const [resources, setResources] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,8 +41,13 @@ const Topic = (props) => {
   const youtubeLinks = useSelector((state) => selectYoutubeLinks(state));
   const udemys = useSelector((state) => selectUdemys(state));
   const loading = useSelector((state) => selectLoading(state));
-  const [resources, setResources] = useState(books);
+  const [archived, setArchived] = useState(false);
+  const archivedArticles = useSelector((state) => selectArchivedArticles(state));
+  const archivedBooks = useSelector((state) => selectArchivedBooks(state));
+  const archivedYoutubeLinks = useSelector((state) => selectArchivedYoutubeLinks(state));
+  const archivedUdemys = useSelector((state) => selectArchivedUdemys(state));
 
+  const archiveTitle = `Switch ${archived ? 'from' : 'to'} archived`;
   const newTitleHandler = (event) => {
     setNewTitle(event.target.value);
   };
@@ -50,30 +58,66 @@ const Topic = (props) => {
   };
   useEffect(() => {
     if (topicId) {
-      dispatch(loadResource(resourceType, topicId, history, page, itemsPerPage));
+      dispatch(loadResource(resourceType, topicId, history, page, itemsPerPage, archived));
     }
-  }, [page, itemsPerPage, resourceType, topicId]);
+  }, [page, itemsPerPage, resourceType, topicId, archived]);
+
+  // const allResource = {
+  //   books,
+  //   udemys,
+  //   youtubeLinks,
+  //   articles,
+  //   archived,
+  //   archivedArticles,
+  //   archivedBooks,
+  //   archivedYoutubeLinks,
+  //   archivedUdemys,
+  //   resources,
+  // };
 
   useEffect(() => {
     if (!loading) {
-      switch (resourceType) {
-        case ('article'):
-          if (!arrayDeepComparison(resources, articles)) { setResources(articles); }
-          break;
-        case ('book'):
-          if (!arrayDeepComparison(resources, books))setResources(books);
-          break;
-        case ('youtube'):
-          if (!arrayDeepComparison(resources, youtubeLinks))setResources(youtubeLinks);
-          break;
-        case ('udemy'):
-          if (!arrayDeepComparison(resources, udemys))setResources(udemys);
-          break;
-        default:
-          if (!arrayDeepComparison(resources, books))setResources(books);
+      if (!archived) {
+        switch (resourceType) {
+          case ('article'):
+            if (!arrayDeepComparison(resources, articles)) { setResources(articles); }
+            break;
+          case ('book'):
+            if (!arrayDeepComparison(resources, books))setResources(books);
+            break;
+          case ('youtube'):
+            if (!arrayDeepComparison(resources, youtubeLinks))setResources(youtubeLinks);
+            break;
+          case ('udemy'):
+            if (!arrayDeepComparison(resources, udemys))setResources(udemys);
+            break;
+          default:
+            if (!arrayDeepComparison(resources, books))setResources(books);
+        }
+      } else {
+        switch (resourceType) {
+          case ('article'):
+            if (!arrayDeepComparison(resources, archivedArticles)) {
+              setResources(archivedArticles);
+            }
+            break;
+          case ('book'):
+            if (!arrayDeepComparison(resources, archivedBooks)) { setResources(archivedBooks); }
+            break;
+          case ('youtube'):
+            if (!arrayDeepComparison(resources, archivedYoutubeLinks)) {
+              setResources(archivedYoutubeLinks);
+            }
+            break;
+          case ('udemy'):
+            if (!arrayDeepComparison(resources, archivedUdemys))setResources(archivedUdemys);
+            break;
+          default:
+            if (!arrayDeepComparison(resources, archivedBooks))setResources(archivedBooks);
+        }
       }
     }
-  }, [resourceType, loading]);
+  }, [resourceType, loading, archived, resources]);
 
   const handleDelete = () => {
     dispatch(deleteTopic(topicId, userId));
@@ -92,6 +136,9 @@ const Topic = (props) => {
   const editCancelHandler = () => {
     setEditTitleMode(false);
   };
+  const archiveSwitcher = () => {
+    setArchived(!archived);
+  };
 
   return (
     <>
@@ -106,6 +153,7 @@ const Topic = (props) => {
             />
           ) : title}
         <ActionButtonsContainer>
+          <ArchiveSelector onClick={archiveSwitcher}>{archiveTitle}</ArchiveSelector>
           <EditTopic onClick={editOpenHandler} />
           <TrashIcon onClick={handleDelete} />
         </ActionButtonsContainer>
@@ -117,14 +165,16 @@ const Topic = (props) => {
           setResourceType={setResourceType}
           resourceType={resourceType}
         />
-        <ListOfResources
-          topicId={topicId}
-          resourceType={resourceType}
-          page={page}
-          itemsPerPage={itemsPerPage}
-          topic={title}
-          resources={resources}
-        />
+        {loading ? 'Loading...' : (
+          <ListOfResources
+            topicId={topicId}
+            resourceType={resourceType}
+            page={page}
+            itemsPerPage={itemsPerPage}
+            topic={title}
+            resources={resources}
+          />
+        )}
         <Pagination
           totalItems={201}
           page={page}
