@@ -72,11 +72,14 @@ export function* refreshTokenSaga() {
 export function* autoLoginSaga(action) {
   try {
     yield put(loginStart());
+    console.log('Here');
     const response = yield axios.get('/auth/refreshtoken');
+    console.log(response);
     const { token, userId } = response.data;
     if (token && userId) { yield put(loginSuccess(token, userId)); }
     action.history.push('/');
   } catch (e) {
+    console.log(e);
     if (e && e.response && e.response.data && e.response.data.errors) {
       const error = e.response.data.errors;
       yield put(loginFail(error));
