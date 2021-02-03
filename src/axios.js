@@ -26,7 +26,6 @@ axiosInstance.interceptors.response.use(
     const originalRequest = err.config;
     if (err.response.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        console.log(err.response);
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -53,6 +52,7 @@ axiosInstance.interceptors.response.use(
             resolve(axios(originalRequest));
           })
           .catch((err) => {
+            console.log(err);
             processQueue(err, null);
             reject(err);
           })
@@ -61,7 +61,6 @@ axiosInstance.interceptors.response.use(
           });
       });
     }
-    console.log(err);
     return Promise.reject(err);
   },
 );
