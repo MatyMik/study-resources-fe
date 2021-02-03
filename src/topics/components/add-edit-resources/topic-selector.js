@@ -7,14 +7,13 @@ const TopicSelectorItem = ({
   const [topic] = topics && topics.filter((topic) => topic.title === selectedTopic);
 
   const topicId = topic && topic.id;
-  console.log(topicId);
   useEffect(() => {
     setTopicId(topicId);
   }, [topicId]);
   const optionsMapped = topics.map((topic) => (
     <option
       key={topic.title}
-      selected={selectedTopic === topic.title}
+
     >
       {topic.title}
     </option>
@@ -25,7 +24,7 @@ const TopicSelectorItem = ({
   return (
     <InputContainer>
       <InputLabel>Choose a topic:</InputLabel>
-      <TopicSelector onChange={selectorHandler}>
+      <TopicSelector defaultValue={selectedTopic} onChange={selectorHandler}>
         {optionsMapped}
       </TopicSelector>
     </InputContainer>

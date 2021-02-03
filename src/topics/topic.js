@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Container, Title, TrashIcon, ActionButtonsContainer, EditTopic, ArchiveSelector,
+  Container, Title, TrashIcon, ActionButtonsContainer, EditTopic, ArchiveSelector, ArchiveIcon,
 } from './components/topic-components';
 import EditTopicSection from './components/edit-title';
 import { deleteTopic, loadResource, editTopic } from './store/actions';
 import { selectUserId } from '../auth/store/selectors';
 import {
-  selectArticles, selectBooks, selectYoutubeLinks, selectUdemys, selectLoading,
+  selectArticles, selectBooks, selectYoutubeLinks, selectUdemys, selectTopicLoading,
   selectArchivedArticles, selectArchivedBooks, selectArchivedYoutubeLinks, selectArchivedUdemys,
+  selectCourses, selectArchivedCourses, selectCount,
 } from './store/selectors';
 import Pagination from './pagination/pagination';
 import ResourceTypeSelector from './components/resource-type-selector';
 import ListOfResources from './list-of-resources';
 // import useSelectResource from './hooks/load-resource-hook';
 import { arrayDeepComparison } from '../common/utils/helpers';
+import Spinner from '../common/spinner/spinner';
 
 const Topic = (props) => {
   const topicId = props
@@ -26,6 +28,7 @@ const Topic = (props) => {
   && props.location
   && props.location.topicProps
   && props.location.topicProps.title;
+  console.log(props);
   const [resourceType, setResourceType] = useState('book');
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -40,12 +43,15 @@ const Topic = (props) => {
   const books = useSelector((state) => selectBooks(state));
   const youtubeLinks = useSelector((state) => selectYoutubeLinks(state));
   const udemys = useSelector((state) => selectUdemys(state));
-  const loading = useSelector((state) => selectLoading(state));
+  const courses = useSelector((state) => selectCourses(state));
+  const loading = useSelector((state) => selectTopicLoading(state));
+  const count = useSelector((state) => selectCount(state));
   const [archived, setArchived] = useState(false);
   const archivedArticles = useSelector((state) => selectArchivedArticles(state));
   const archivedBooks = useSelector((state) => selectArchivedBooks(state));
   const archivedYoutubeLinks = useSelector((state) => selectArchivedYoutubeLinks(state));
   const archivedUdemys = useSelector((state) => selectArchivedUdemys(state));
+  const archivedCourses = useSelector((state) => selectArchivedCourses(state));
 
   const archiveTitle = `Switch ${archived ? 'from' : 'to'} archived`;
   const newTitleHandler = (event) => {
@@ -62,19 +68,6 @@ const Topic = (props) => {
     }
   }, [page, itemsPerPage, resourceType, topicId, archived]);
 
-  // const allResource = {
-  //   books,
-  //   udemys,
-  //   youtubeLinks,
-  //   articles,
-  //   archived,
-  //   archivedArticles,
-  //   archivedBooks,
-  //   archivedYoutubeLinks,
-  //   archivedUdemys,
-  //   resources,
-  // };
-
   useEffect(() => {
     if (!loading) {
       if (!archived) {
@@ -90,6 +83,9 @@ const Topic = (props) => {
             break;
           case ('udemy'):
             if (!arrayDeepComparison(resources, udemys))setResources(udemys);
+            break;
+          case ('course'):
+            if (!arrayDeepComparison(resources, courses))setResources(courses);
             break;
           default:
             if (!arrayDeepComparison(resources, books))setResources(books);
@@ -112,6 +108,9 @@ const Topic = (props) => {
           case ('udemy'):
             if (!arrayDeepComparison(resources, archivedUdemys))setResources(archivedUdemys);
             break;
+          case ('course'):
+            if (!arrayDeepComparison(resources, archivedCourses))setResources(archivedCourses);
+            break;
           default:
             if (!arrayDeepComparison(resources, archivedBooks))setResources(archivedBooks);
         }
@@ -122,9 +121,8 @@ const Topic = (props) => {
   const handleDelete = () => {
     dispatch(deleteTopic(topicId, userId));
   };
-  const params = useParams();
 
-  const { topic } = params;
+  const { topic } = props.match.params;
 
   const firstPageHandler = () => {
     console.log(topic);
@@ -154,8 +152,10 @@ const Topic = (props) => {
           ) : title}
         <ActionButtonsContainer>
           <ArchiveSelector onClick={archiveSwitcher}>{archiveTitle}</ArchiveSelector>
+
           <EditTopic onClick={editOpenHandler} />
           <TrashIcon onClick={handleDelete} />
+          <ArchiveIcon onClick={archiveSwitcher} />
         </ActionButtonsContainer>
       </Title>
 
@@ -165,7 +165,7 @@ const Topic = (props) => {
           setResourceType={setResourceType}
           resourceType={resourceType}
         />
-        {loading ? 'Loading...' : (
+        {loading ? <Spinner>Loading</Spinner> : (
           <ListOfResources
             topicId={topicId}
             resourceType={resourceType}
@@ -176,7 +176,7 @@ const Topic = (props) => {
           />
         )}
         <Pagination
-          totalItems={201}
+          totalItems={count}
           page={page}
           itemsPerPage={itemsPerPage}
           firstPageHandler={firstPageHandler}

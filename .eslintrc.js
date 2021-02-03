@@ -31,5 +31,6 @@ module.exports = {
     'react/destructuring-assignment': 0,
     'no-plusplus': 0,
     'consistent-return': 0,
+    'jsx-a11y/media-has-caption': 0,
   },
 };

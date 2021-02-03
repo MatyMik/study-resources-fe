@@ -22,8 +22,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const topics = useSelector((state) => selectTopics(state));
   const userId = useSelector((state) => selectUserId(state));
-  console.log(topics);
-  // const isLoading = useSelector((state) => selectLoading(state));
   const clickHandler = (topicId) => {
     setOpen(false);
     dispatch(editTopic({ lastActive: Date.now(), topicId }, userId));

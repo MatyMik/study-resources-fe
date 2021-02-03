@@ -3,6 +3,7 @@ import * as actionTypes from './action-types';
 const initialState = {
   loading: false,
   error: null,
+  count: null,
   article: [],
   book: [],
   youtube: [],
@@ -12,6 +13,8 @@ const initialState = {
   archivedbook: [],
   archivedyoutube: [],
   archivedudemy: [],
+  course: [],
+  archivedcourse: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +27,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.EDIT_TOPIC_START:
       return { ...state, loading: true, error: null };
     case actionTypes.LOAD_RESOURCE_SUCCESS:
-      return { ...state, loading: false, [action.resourceType]: action.resources };
+      return {
+        ...state, loading: false, [action.resourceType]: action.resources, count: action.count,
+      };
     case actionTypes.LOAD_RESOURCE_FAIL:
     case actionTypes.LOAD_ALL_TOPICS_FAIL:
     case actionTypes.ADD_TOPIC_FAIL:

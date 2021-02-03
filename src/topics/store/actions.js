@@ -4,10 +4,11 @@ export const loadResourceStart = () => ({ type: actionTypes.LOAD_RESOURCE_START 
 
 export const loadResourceFail = (error) => ({ type: actionTypes.LOAD_RESOURCE_FAIL, error });
 
-export const loadResourceSuccess = (resourceType, resources) => ({
+export const loadResourceSuccess = (resourceType, resources, count) => ({
   type: actionTypes.LOAD_RESOURCE_SUCCESS,
   resourceType,
   resources,
+  count,
 });
 
 export const loadResource = (resourceType, topicId, history, page, itemsPerPage, archived) => ({

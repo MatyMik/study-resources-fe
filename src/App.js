@@ -21,6 +21,8 @@ import AddTopic from './topics/pages/add-topic';
 import AllTopics from './topics/all-topics';
 import { loadAllTopics } from './topics/store/actions';
 import YoutubePlayer from './youtube-player/youtube-player';
+import AddCourse from './course/pages/add-course';
+import WatchCourse from './course/pages/watch-course';
 
 let token;
 function App() {
@@ -55,8 +57,10 @@ function App() {
         <Route exact path="/alltopics"><AllTopics /></Route>
         <Route path="/add/resource"><AddEditResource /></Route>
         <Route path="/add/topic"><AddTopic /></Route>
+        <Route path="/add/course"><AddCourse /></Route>
         <GuardedRoute auth={isLoggedIn} path="/resource/book/:pdfId" component={PdfReader} />
         <GuardedRoute auth={isLoggedIn} path="/resource/youtube/:youtubeId" component={YoutubePlayer} />
+        <GuardedRoute auth={isLoggedIn} path="/resource/course/:courseId" component={WatchCourse} />
         <Route auth={isLoggedIn} path="/:topic" component={Topic} />
         <GuardedRoute auth={isLoggedIn} path="/asdf/asdf" component={PdfUploader} />
         <GuardedRoute auth={isLoggedIn} path="/" component={AllTopics} />

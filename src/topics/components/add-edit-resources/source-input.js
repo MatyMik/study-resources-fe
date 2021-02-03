@@ -5,7 +5,6 @@ import FileInput from './file-input';
 const SourceSelector = ({
   resourceType, setSource, source, handleFileSelection, fileName,
 }) => {
-  console.log(fileName);
   const label = resourceType === 'book' ? 'Choose a file:' : 'Insert a link:';
   const inputType = resourceType === 'book' ? 'file' : 'text';
   const sourceHandler = (event) => {

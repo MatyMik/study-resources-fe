@@ -16,11 +16,11 @@ export function* loadResourceSaga(action) {
     let { resourceType } = action;
     yield put(loadResourceStart());
     const response = yield axios.get(`/${action.resourceType}/all/${action.topicId}`, { params: { page: action.page, itemsPerPage: action.itemsPerPage, archived: action.archived } });
-    const { resources } = response.data;
+    const { resources, count } = response.data;
     if (action.archived) {
       resourceType = `archived${action.resourceType}`;
     }
-    yield put(loadResourceSuccess(resourceType, resources));
+    yield put(loadResourceSuccess(resourceType, resources, count));
   } catch (err) {
     yield put(loadResourceFail(err));
   }

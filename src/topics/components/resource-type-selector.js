@@ -9,6 +9,7 @@ const ResourceTypeSelector = ({ setResourceType, resourceType }) => {
       <ResourceTypeLink active={resourceType === 'article'} onClick={() => setResourceType('article')}>Article</ResourceTypeLink>
       <ResourceTypeLink active={resourceType === 'book'} onClick={() => setResourceType('book')}>Book</ResourceTypeLink>
       <ResourceTypeLink active={resourceType === 'udemy'} onClick={() => setResourceType('udemy')}>Udemy</ResourceTypeLink>
+      <ResourceTypeLink active={resourceType === 'course'} onClick={() => setResourceType('course')}>Course</ResourceTypeLink>
     </TypeSelectorContainer>
   );
 };
