@@ -46,10 +46,9 @@ axiosInstance.interceptors.response.use(
         axiosInstance
           .get('/auth/refreshtoken')
           .then(({ data }) => {
-            console.log(data);
             axios.defaults.headers.common.Authorization = `token=${data.token}`;
             originalRequest.headers.Authorization = `token=${data.token}`;
-            processQueue(null, data.fooToken);
+            processQueue(null, data.token);
             resolve(axios(originalRequest));
           })
           .catch((err) => {
