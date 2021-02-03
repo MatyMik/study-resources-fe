@@ -26,9 +26,9 @@ axiosInstance.interceptors.response.use(
     const originalRequest = err.config;
     if (err.response.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        console.log(err.response);
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
+          processQueue(err, null);
         })
           .then((token) => {
             if (token) {
@@ -37,16 +37,18 @@ axiosInstance.interceptors.response.use(
               return axiosInstance(originalRequest);
             }
           })
-          .catch((err) => Promise.reject(err));
+          .catch((err) => {
+            Promise.reject(err);
+          });
       }
 
       originalRequest._retry = true;
       isRefreshing = true;
-
       return new Promise((resolve, reject) => {
         axiosInstance
           .get('/auth/refreshtoken')
-          .then(({ data }) => {
+          .then((resp) => {
+            const { data } = resp;
             axios.defaults.headers.common.Authorization = `token=${data.token}`;
             originalRequest.headers.Authorization = `token=${data.token}`;
             processQueue(null, data.token);
@@ -61,7 +63,6 @@ axiosInstance.interceptors.response.use(
           });
       });
     }
-    console.log(err);
     return Promise.reject(err);
   },
 );
