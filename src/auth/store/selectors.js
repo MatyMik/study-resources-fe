@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 
 export const selectAuth = (state) => state.auth;
 const errorSelector = (auth, type) => {
-  const error = auth.error ? auth.error.filter((error) => error.field === type) : [];
+  const error = auth.error
+  && auth.error.length > 0 ? auth.error.filter((error) => error.field === type) : [];
   return error.length > 0 ? error[0].message : null;
 };
 
