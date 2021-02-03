@@ -54,14 +54,14 @@ function App() {
       {isLoggedIn ? <ActionsMenu /> : null}
       <Switch>
         <Route path="/auth"><Auth /></Route>
-        <Route exact path="/alltopics"><AllTopics /></Route>
-        <Route path="/add/resource"><AddEditResource /></Route>
-        <Route path="/add/topic"><AddTopic /></Route>
-        <Route path="/add/course"><AddCourse /></Route>
+        <GuardedRoute exact path="/alltopics"><AllTopics /></GuardedRoute>
+        <GuardedRoute path="/add/resource"><AddEditResource /></GuardedRoute>
+        <GuardedRoute path="/add/topic"><AddTopic /></GuardedRoute>
+        <GuardedRoute path="/add/course"><AddCourse /></GuardedRoute>
         <GuardedRoute auth={isLoggedIn} path="/resource/book/:pdfId" component={PdfReader} />
         <GuardedRoute auth={isLoggedIn} path="/resource/youtube/:youtubeId" component={YoutubePlayer} />
         <GuardedRoute auth={isLoggedIn} path="/resource/course/:courseId" component={WatchCourse} />
-        <Route auth={isLoggedIn} path="/:topic" component={Topic} />
+        <GuardedRoute auth={isLoggedIn} path="/:topic" component={Topic} />
         <GuardedRoute auth={isLoggedIn} path="/asdf/asdf" component={PdfUploader} />
         <GuardedRoute auth={isLoggedIn} path="/" component={AllTopics} />
       </Switch>
