@@ -8,20 +8,25 @@ import { updateResource, deleteResource } from '../store/actions';
 import EditTitleItem from './edit-title';
 
 const TopicItemProgress = ({
-  title, hasProgressbar, resourceType, resourceId, url, lastPageRead, numPages, archived,
+  title, hasProgressbar, resourceType, resourceId, url, lastItem, totalItems, archived,
 }) => {
+  console.log(lastItem);
   const [itemTitle, setItemTitle] = useState(title);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const percent = resourceType === 'book' ? (lastPageRead / numPages) * 100 : null;
+  const percent = ((resourceType === 'book') || (resourceType === 'course')) ? (lastItem / totalItems) * 100 : null;
   const handleItemOpen = () => {
     switch (resourceType) {
       case ('youtube'):
         history.push(`/resource/${resourceType}/${resourceId}`, { youtubeProps: { url } });
         break;
       case ('book'): {
-        history.push(`/resource/${resourceType}/${resourceId}?page=${lastPageRead}`);
+        history.push(`/resource/${resourceType}/${resourceId}?page=${lastItem}`);
+        break;
+      }
+      case ('course'): {
+        history.push(`/resource/${resourceType}/${resourceId}`);
         break;
       }
       case ('article'):

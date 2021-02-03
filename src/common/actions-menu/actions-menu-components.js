@@ -8,7 +8,7 @@ export const ActionsMenuContainer = styled.div`
     width: 85%;
     margin: 1rem 10%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
 
@@ -22,7 +22,8 @@ export const ActionsMenuButton = styled.div`
 background-color: ${colors.secondary.main};
 border: 1px solid ${colors.primary.main};
 border-radius: 5px;
-width: 30%;
+width: 60%;
+padding: 0.25rem 0.75rem;
 justify-self: center;
 margin: 1rem auto;
 text-align: center;

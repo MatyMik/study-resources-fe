@@ -11,3 +11,8 @@ export const selectUrl = createSelector(
   selectPdf,
   (pdf) => pdf.url,
 );
+
+export const selectLoading = createSelector(
+  selectPdf,
+  (pdf) => pdf.loading,
+);

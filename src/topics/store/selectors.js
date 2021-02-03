@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 export const selectTopic = (state) => state.topic;
 
-export const selectLoading = createSelector(
+export const selectTopicLoading = createSelector(
   selectTopic,
   (topic) => topic.loading,
 );
@@ -35,6 +35,11 @@ export const selectUdemys = createSelector(
   (topic) => topic.udemy,
 );
 
+export const selectCourses = createSelector(
+  selectTopic,
+  (topic) => topic.course,
+);
+
 export const selectArchivedArticles = createSelector(
   selectTopic,
   (topic) => topic.archivedarticle,
@@ -51,4 +56,14 @@ export const selectArchivedYoutubeLinks = createSelector(
 export const selectArchivedUdemys = createSelector(
   selectTopic,
   (topic) => topic.archivedudemy,
+);
+
+export const selectArchivedCourses = createSelector(
+  selectTopic,
+  (topic) => topic.archivedcourse,
+);
+
+export const selectCount = createSelector(
+  selectTopic,
+  (topic) => topic.count,
 );

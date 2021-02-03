@@ -11,7 +11,8 @@ export const createAuthData = (page, email, password, confirmPassword) => {
 };
 
 export const createtTopicRoute = (topic) => {
-  const topicParts = topic.match(/(\w+)/g);
+  if (!topic) return;
+  const topicParts = topic.toString().match(/(\w+)/g);
   const topicRoute = topicParts.map((topic) => topic.toLowerCase()).reduce((acc, topic) => `${acc}${topic}`, '');
   return topicRoute;
 };

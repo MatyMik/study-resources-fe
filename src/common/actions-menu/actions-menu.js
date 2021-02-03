@@ -10,10 +10,14 @@ const ActionsMenu = () => {
   const addTopicHandler = () => {
     history.push('/add/topic');
   };
+  const addCourseHandler = () => {
+    history.push('/add/course');
+  };
   return (
     <ActionsMenuContainer>
       <ActionsMenuButton onClick={addTopicHandler}>Add Topic</ActionsMenuButton>
       <ActionsMenuButton onClick={addResourceHandler}>Add Resource</ActionsMenuButton>
+      <ActionsMenuButton onClick={addCourseHandler}>Add Course</ActionsMenuButton>
     </ActionsMenuContainer>
   );
 };

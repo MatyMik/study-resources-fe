@@ -3,6 +3,7 @@ import colors from '../../common/style/colors';
 import { ReactComponent as Trash } from '../../assets/trash.svg';
 import { ReactComponent as Add } from '../../assets/add.svg';
 import { ReactComponent as Edit } from '../../assets/edit.svg';
+import { ReactComponent as Archive } from '../../assets/archive.svg';
 
 export const Container = styled.div`
   width:85%;
@@ -77,9 +78,17 @@ export const TrashIcon = styled(Trash)`
     width: 2rem;
     height: 2rem;
     fill: ${colors.primary.opaque};
+    justify-self: center;
+    align-self: center;
 
     &:hover {
       fill: ${colors.primary.opaqueScale(0.6)};
+    }
+
+
+    @media (max-width: 600px) {
+      width: 1rem;
+      height: 1rem;
     }
 `;
 
@@ -112,15 +121,24 @@ export const AddIcon = styled(Add)`
     width: 1rem;
     height: 1rem;
     justify-self: center;
+
 `;
 
 export const EditTopic = styled(Edit)`
 width: 2rem;
     height: 2rem;
     fill: ${colors.primary.opaque};
+    justify-self: center;
+    align-self: center;
 
     &:hover {
       fill: ${colors.primary.opaqueScale(0.6)};
+    }
+
+
+    @media (max-width: 600px) {
+      width: 1rem;
+      height: 1rem;
     }
 `;
 
@@ -129,6 +147,11 @@ export const ActionButtonsContainer = styled.div`
   right: 5%;
   font-size: 1rem;
   width: 20%;
+
+  @media (max-width: 940px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const EditTitleContainer = styled.div`
@@ -159,5 +182,32 @@ export const ArchiveSelector = styled.div`
 
     &:hover {
       color: ${colors.primary.opaqueScale(0.6)};
+    }
+
+    @media (max-width: 940px) {
+      display: none;
+    }
+`;
+
+export const ArchiveIcon = styled(Archive)`
+
+    display:none;
+
+    @media (max-width:940px) {
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      justify-self: center;
+      align-self: center;
+    fill: ${colors.primary.opaque};
+
+    &:hover {
+      fill: ${colors.primary.opaqueScale(0.6)};
+    }
+    }
+
+    @media (max-width: 600px) {
+      width: 1rem;
+      height: 1rem;
     }
 `;
