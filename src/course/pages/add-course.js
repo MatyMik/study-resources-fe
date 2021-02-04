@@ -19,6 +19,7 @@ const AddCourse = () => {
   const [courseAdded, setCourseAdded] = useState(false);
   const history = useHistory();
   const loading = useSelector((state) => selectTopicLoading(state));
+
   const titleInputHandler = (event) => {
     setTitle(event.target.value);
   };
@@ -42,6 +43,7 @@ const AddCourse = () => {
     dispatch(addCourse(newCourse));
     setCourseAdded(true);
   };
+
   return (
     <AddCourseContainer>
       <TitleInputContainer>
