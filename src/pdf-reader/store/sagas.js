@@ -13,7 +13,7 @@ export function* uploadPdfSaga(action) {
     const { pdfDetails, file, userId } = action;
     const response = yield axios.get('/book/uploadurl', { params: { title: pdfDetails.title, userId } });
     const { url } = response.data;
-    yield fetch(url.replace('googleapis', 'cloud.google'), { body: file, method: 'PUT', headers: { 'Content-Type': 'application/pdf' } });
+    yield fetch(url, { body: file, method: 'PUT', headers: { 'Content-Type': 'application/pdf' } });
     yield axios.post('/book/add', { pdfDetails });
     yield put(uploadPdfSuccess());
   } catch (e) {
