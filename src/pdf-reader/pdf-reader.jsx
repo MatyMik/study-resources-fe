@@ -33,6 +33,7 @@ const Pdf = () => {
         {
           path: '/public',
           initialDoc: `${process.env.REACT_APP_STORAGE_SPACE}/${pdf.url}`,
+          fullAPI: true,
         },
         viewer.current,
 
