@@ -59,9 +59,14 @@ const AddResource = () => {
   const [resourceType, setResourceType] = useState('book');
   const [selectedTopic, setSelectedTopic] = useState(topic);
   const topicReferred = topics && topics[0] && topics.filter(
-    (t) => t.title === selectedTopic,
+    (t) => t.title.toLowerCase() === selectedTopic,
   );
   const [topicId, setTopicId] = useState(topicReferred && topicReferred[0] && topicReferred[0].id);
+  useEffect(() => {
+    if (!topicId && topicReferred && topicReferred[0] && topicReferred[0].id) {
+      setTopicId(topicReferred[0].id);
+    }
+  }, [topicReferred]);
   const loading = useSelector((state) => selectTopicLoading(state));
   const [source, setSource] = useState('');
   const [title, setTitle] = useState('');
