@@ -24,15 +24,9 @@ export function* uploadPdfSaga(action) {
 export function* downloadPdfSaga(action) {
   try {
     yield put(downloadPdfStart());
-    const { pdfId, userId } = action;
-    const response = yield axios.get('/book/downloadurl', { params: { pdfId, userId } });
-    const { url } = response.data;
-    const res = yield fetch(url, {
-      metod: 'GET', headers: { 'Content-Type': 'application/pdf', Accept: 'application/pdf' },
-    });
-    const fileWrapper = yield res.blob();
-    const file = window.URL.createObjectURL(fileWrapper);
-    yield put(downloadPdfSuccess(file));
+    const response = yield axios.get(`book/${action.pdfId}`);
+    const { pdf } = response.data;
+    yield put(downloadPdfSuccess(pdf));
   } catch (e) {
     yield put(downloadPdfFail(e));
   }

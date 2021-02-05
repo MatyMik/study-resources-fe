@@ -1,13 +1,13 @@
 import React from 'react';
 import GooglePicker from 'react-google-picker';
 
-const GooglePrickerComponent = ({ setUrl, setDuration, setTitle }) => (
+const GoodgleDriveUpload = () => (
   <GooglePicker
-    clientId={process.env.REACT_APP_GOOGLE_API_ID}
-    developerKey={process.env.REACT_APP_GOOGLE_API_KEY}
+    clientId="YOUR_CLIENT_ID_HERE"
+    developerKey="YOUR_DEVELOPER_KEY_HERE"
     scope={['https://www.googleapis.com/auth/drive']}
-    onChange={() => console.log(process.env.REACT_APP_GOOGLE_API_KEY)}
-    onAuthFailed={() => console.log('on auth failed:', process.env.REACT_APP_GOOGLE_API_KEY)}
+    onChange={(data) => console.log('on change:', data)}
+    onAuthFailed={(data) => console.log('on auth failed:', data)}
     multiselect
     navHidden
     authImmediate={false}
@@ -26,12 +26,11 @@ const GooglePrickerComponent = ({ setUrl, setDuration, setTitle }) => (
         .addView(docsView)
         .addView(uploadView)/* DocsUploadView added */
         .setOAuthToken(oauthToken)
-        .setDeveloperKey(process.env.REACT_APP_GOOGLE_API_KEY)
+        .setDeveloperKey('YOUR_DEVELOPER_KEY_HERE')
         .setCallback((data) => {
-          if (data.action === google.picker.Action.PICKED) {
-            setUrl(data.docs[0].embedUrl);
-            setTitle(data.docs[0].name);
-            setDuration(data.docs[0].duration);
+          if (data.action == google.picker.Action.PICKED) {
+            const fileId = data.docs[0].id;
+            alert(`The user selected: ${fileId}`);
           }
         });
       picker.build().setVisible(true);
@@ -42,4 +41,4 @@ const GooglePrickerComponent = ({ setUrl, setDuration, setTitle }) => (
   </GooglePicker>
 );
 
-export default GooglePrickerComponent;
+export default GoodgleDriveUpload;

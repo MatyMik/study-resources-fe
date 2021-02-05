@@ -23,9 +23,7 @@ const AddCourse = () => {
   const titleInputHandler = (event) => {
     setTitle(event.target.value);
   };
-  console.log(selectedTopic);
   useEffect(() => {
-    console.log(selectedTopic);
     if (!loading && courseAdded) history.push({ pathname: `/${createtTopicRoute(selectedTopic)}`, topicProps: { topicId, topic: selectedTopic } });
   }, [loading, courseAdded]);
 
@@ -39,7 +37,6 @@ const AddCourse = () => {
     const newCourse = {
       title, sections, topicId, totalItems,
     };
-    console.log(newCourse);
     dispatch(addCourse(newCourse));
     setCourseAdded(true);
   };
