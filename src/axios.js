@@ -27,9 +27,10 @@ export const createResponseInterceptor = (history) => {
       const originalRequest = err.config;
       if (err.response.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
+          history.push('/auth/login');
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject });
-            history.push('/auth/login');
+            processQueue(err, null);
           })
             .then((token) => {
               if (token) {
