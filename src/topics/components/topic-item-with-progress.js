@@ -10,7 +10,6 @@ import EditTitleItem from './edit-title';
 const TopicItemProgress = ({
   title, hasProgressbar, resourceType, resourceId, url, lastItem, totalItems, archived,
 }) => {
-  console.log(lastItem);
   const [itemTitle, setItemTitle] = useState(title);
   const [editMode, setEditMode] = useState(false);
   const history = useHistory();

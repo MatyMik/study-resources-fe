@@ -7,7 +7,6 @@ const YoutubePlayer = (props) => {
     && props.location.state
     && props.location.state.youtubeProps
     && props.location.state.youtubeProps.url;
-  console.log(props.location.state);
   return (
     <ReactPlayer url={url} onDuration={(duration) => console.log(duration)} />
   );

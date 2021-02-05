@@ -32,7 +32,6 @@ axiosInstance.interceptors.response.use(
         })
           .then((token) => {
             if (token) {
-              console.log(token);
               originalRequest.headers.Authorization = `token=${token}`;
               return axiosInstance(originalRequest);
             }

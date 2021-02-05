@@ -10,7 +10,6 @@ const SideBarContainer = styled.div`
 const SideBar = ({
   sections, setUrl, lastWatched, videoWatchedHandler,
 }) => {
-  console.log(sections);
   const mappedSections = sections && sections.map((section) => (
     <Section
       key={section.order}

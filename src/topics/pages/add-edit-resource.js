@@ -54,16 +54,13 @@ const AddResource = () => {
   const userId = useSelector((state) => selectUserId(state));
   const query = useQuery();
   const topic = query.get('topic') || (topics.length > 0 && topics[0].title) || '';
-  console.log(topic);
   const titleText = 'Create Resource';
   const dispatch = useDispatch();
   const [resourceType, setResourceType] = useState('book');
   const [selectedTopic, setSelectedTopic] = useState(topic);
-  console.log(topics);
   const topicReferred = topics && topics[0] && topics.filter(
     (t) => t.title === selectedTopic,
   );
-  console.log(topicReferred);
   const [topicId, setTopicId] = useState(topicReferred && topicReferred[0] && topicReferred[0].id);
   const loading = useSelector((state) => selectTopicLoading(state));
   const [source, setSource] = useState('');

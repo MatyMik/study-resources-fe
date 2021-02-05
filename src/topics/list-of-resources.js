@@ -6,7 +6,6 @@ import TopicItemWithProgress from './components/topic-item-with-progress';
 const ListOfResources = ({
   resourceType, topic, resources,
 }) => {
-  console.log(topic);
   const history = useHistory();
 
   const addResourceHandler = () => {
