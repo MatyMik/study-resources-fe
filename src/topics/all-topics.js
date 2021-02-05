@@ -19,7 +19,7 @@ const AllTopics = () => {
 
   const clickHandler = (topicTitle, topicId) => {
     const topic = createtTopicRoute(topicTitle);
-    history.push({ pathname: `/${topic}`, topicProps: { topicId, topic } });
+    history.push({ pathname: `/${topic}`, topicProps: { topicId, title: topic } });
   };
 
   const topicsToRender = topics.map((topic) => (

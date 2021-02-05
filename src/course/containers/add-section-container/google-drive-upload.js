@@ -28,7 +28,7 @@ const GoodgleDriveUpload = () => (
         .setOAuthToken(oauthToken)
         .setDeveloperKey('YOUR_DEVELOPER_KEY_HERE')
         .setCallback((data) => {
-          if (data.action == google.picker.Action.PICKED) {
+          if (data.action === google.picker.Action.PICKED) {
             const fileId = data.docs[0].id;
             alert(`The user selected: ${fileId}`);
           }
