@@ -23,7 +23,6 @@ const Pdf = () => {
   }
   const query = useQuery();
   const lastPage = parseInt(query.get('page'), 10) || 1;
-  console.log(lastPage);
   useEffect(() => {
     dispatch(downloadPdf(pdfId, userId));
   }, []);
@@ -33,9 +32,10 @@ const Pdf = () => {
       WebViewer(
         {
           path: '/public',
-          initialDoc: pdf,
+          initialDoc: `${process.env.REACT_APP_STORAGE_SPACE}/${pdf.url}`,
         },
         viewer.current,
+
       ).then((instance) => {
         const { docViewer, Annotations } = instance;
         const annotManager = docViewer.getAnnotationManager();
@@ -51,7 +51,7 @@ const Pdf = () => {
 
           annotManager.addAnnotation(rectangleAnnot);
           annotManager.redrawAnnotation(rectangleAnnot);
-          docViewer.displayPageLocation(lastPage);
+          instance.setCurrentPageNumber(lastPage);
         });
         docViewer.on('pageNumberUpdated', (pageNumber) => {
           const resource = {

@@ -18,7 +18,6 @@ const AllTopics = () => {
   }, []);
 
   const clickHandler = (topicTitle, topicId) => {
-    console.log(topicId);
     const topic = createtTopicRoute(topicTitle);
     history.push({ pathname: `/${topic}`, topicProps: { topicId, topic } });
   };

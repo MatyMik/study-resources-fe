@@ -28,7 +28,6 @@ const Topic = (props) => {
   && props.location
   && props.location.topicProps
   && props.location.topicProps.title;
-  console.log(props);
   const [resourceType, setResourceType] = useState('book');
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);

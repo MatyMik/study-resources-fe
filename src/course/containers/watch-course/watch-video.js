@@ -21,7 +21,6 @@ const Span = styled.span`
 const VideoPart = ({
   title, order, setUrl, url, active, id, videoWatchedHandler, watched,
 }) => {
-  console.log(title, watched);
   const [watchedMarker, setWatchedMarker] = useState(watched);
   const selectHandler = () => {
     setUrl(url, order);
