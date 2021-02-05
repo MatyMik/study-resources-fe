@@ -13,7 +13,7 @@ import {
 } from './auth/store/selectors';
 import Topic from './topics/topic';
 import Navbar from './common/navbar/navbar';
-import axios from './axios';
+import axios, { createResponseInterceptor } from './axios';
 import GuardedRoute from './common/hoc/auth-guard';
 import ActionsMenu from './common/actions-menu/actions-menu';
 import AddEditResource from './topics/pages/add-edit-resource';
@@ -32,6 +32,7 @@ function App() {
   const loading = useSelector((state) => selectLoading(state));
   const [autoLoginStarted, setAutoLoginStarted] = useState(false);
   const history = useHistory();
+  createResponseInterceptor(history);
   const dispatch = useDispatch();
   useEffect(() => {
     setAutoLoginStarted(true);

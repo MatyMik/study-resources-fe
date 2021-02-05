@@ -20,50 +20,52 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (err) => {
-    const originalRequest = err.config;
-    if (err.response.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-          // processQueue(err, null);
-        })
-          .then((token) => {
-            if (token) {
-              originalRequest.headers.Authorization = `token=${token}`;
-              return axiosInstance(originalRequest);
-            }
+export const createResponseInterceptor = (history) => {
+  axiosInstance.interceptors.response.use(
+    (response) => response,
+    (err) => {
+      const originalRequest = err.config;
+      if (err.response.status === 401 && !originalRequest._retry) {
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+            history.push('/auth/login');
           })
-          .catch((err) => {
-            Promise.reject(err);
-          });
-      }
+            .then((token) => {
+              if (token) {
+                originalRequest.headers.Authorization = `token=${token}`;
+                return axiosInstance(originalRequest);
+              }
+            })
+            .catch((err) => {
+              Promise.reject(err);
+            });
+        }
 
-      originalRequest._retry = true;
-      isRefreshing = true;
-      return new Promise((resolve, reject) => {
-        axiosInstance
-          .get('/auth/refreshtoken')
-          .then((resp) => {
-            const { data } = resp;
-            axios.defaults.headers.common.Authorization = `token=${data.token}`;
-            originalRequest.headers.Authorization = `token=${data.token}`;
-            processQueue(null, data.token);
-            resolve(axios(originalRequest));
-          })
-          .catch((err) => {
-            processQueue(err, null);
-            reject(err);
-          })
-          .then(() => {
-            isRefreshing = false;
-          });
-      });
-    }
-    return Promise.reject(err);
-  },
-);
+        originalRequest._retry = true;
+        isRefreshing = true;
+        return new Promise((resolve, reject) => {
+          axiosInstance
+            .get('/auth/refreshtoken')
+            .then((resp) => {
+              const { data } = resp;
+              axios.defaults.headers.common.Authorization = `token=${data.token}`;
+              originalRequest.headers.Authorization = `token=${data.token}`;
+              processQueue(null, data.token);
+              resolve(axios(originalRequest));
+            })
+            .catch((err) => {
+              processQueue(err, null);
+              reject(err);
+            })
+            .then(() => {
+              isRefreshing = false;
+            });
+        });
+      }
+      return Promise.reject(err);
+    },
+  );
+};
 
 export default axiosInstance;
