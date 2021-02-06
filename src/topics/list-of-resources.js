@@ -9,7 +9,7 @@ const ListOfResources = ({
   const history = useHistory();
 
   const addResourceHandler = () => {
-    history.push(`/add/resource?topic=${topic}`);
+    history.push(`/add/resource?topic=${topic}&resourceType=${resourceType}`);
   };
 
   const resourcesToRender = resources && resources.map((resource) => (
