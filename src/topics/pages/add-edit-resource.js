@@ -29,7 +29,7 @@ const AddResource = () => {
 
   useEffect(() => {
     if (!pdfLoading && resourceAdded) {
-      history.push({ pathname: `/${createtTopicRoute(selectedTopic)},`, topicProps: { topicId, topic: selectedTopic } });
+      history.push({ pathname: `/${createtTopicRoute(selectedTopic)}`, topicProps: { topicId, topic: selectedTopic } });
     }
   }, [pdfLoading, resourceAdded]);
 
@@ -54,9 +54,10 @@ const AddResource = () => {
   const userId = useSelector((state) => selectUserId(state));
   const query = useQuery();
   const topic = query.get('topic') || (topics.length > 0 && topics[0].title) || '';
+  const defaultResourceType = query.get('resourceType') || 'book';
   const titleText = 'Create Resource';
   const dispatch = useDispatch();
-  const [resourceType, setResourceType] = useState('book');
+  const [resourceType, setResourceType] = useState(defaultResourceType);
   const [selectedTopic, setSelectedTopic] = useState(topic);
   const topicReferred = topics && topics[0] && topics.filter(
     (t) => t.title.toLowerCase() === selectedTopic,
