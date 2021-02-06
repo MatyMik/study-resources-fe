@@ -32,7 +32,7 @@ const Pdf = () => {
       WebViewer(
         {
           path: '/public',
-          initialDoc: `https://study-resources-storage.s3.eu-central-1.amazonaws.com/${pdf.url}`,
+          initialDoc: `${process.env.REACT_APP_STORAGE_SPACE}/${pdf.url}`,
           fullAPI: true,
         },
         viewer.current,
