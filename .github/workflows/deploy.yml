@@ -17,6 +17,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with: 
+          envkey_REACT_APP_SERVER: ${{ secrets.REACT_APP_SERVER }}
+          envkey_REACT_APP_STORAGE_SPACE: ${{ secrets.REACT_APP_STORAGE_SPACE}}
+          envkey_REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
+          envkey_REACT_APP_GOOGLE_API_ID: ${{ secrets.REACT_APP_GOOGLE_API_ID}}
+          file_name: .env
       - run: npm install
       - run: npm run build --if-present
 
