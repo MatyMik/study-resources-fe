@@ -16,6 +16,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_ONE_COURSE_SUCCESS:
     case actionTypes.UPDATE_COURSE_SUCCESS:
     case actionTypes.UPDATE_COURSE_LAST_WATCHED_SUCCESS:
+    case actionTypes.SET_CURRENT_COURSE:
+    case actionTypes.ADD_SECTION_TO_COURSE_SUCCESS:
       return { ...state, loading: false, chosenCourse: action.course };
     case actionTypes.UPDATE_VIDEO_SUCCESS:
     default:

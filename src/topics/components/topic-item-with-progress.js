@@ -8,7 +8,8 @@ import { updateResource, deleteResource } from '../store/actions';
 import EditTitleItem from './edit-title';
 
 const TopicItemProgress = ({
-  title, hasProgressbar, resourceType, resourceId, url, lastItem, totalItems, archived,
+  title, hasProgressbar, resourceType, resourceId,
+  url, lastItem, totalItems, archived, setCurrentCourseHandler, resource,
 }) => {
   const [itemTitle, setItemTitle] = useState(title);
   const [editMode, setEditMode] = useState(false);
@@ -49,6 +50,10 @@ const TopicItemProgress = ({
   };
 
   const editModeHandler = () => {
+    if (resourceType === 'course') {
+      setCurrentCourseHandler(resource);
+      history.push(`/edit/course/${resourceId}`);
+    }
     setEditMode(!editMode);
   };
 

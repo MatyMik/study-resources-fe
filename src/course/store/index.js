@@ -6,6 +6,7 @@ import {
   updateCourseSaga,
   updateVideoSaga,
   updateCourseLastWatchedSaga,
+  addSectionToCourseSaga,
 } from './sagas';
 import * as actionTypes from './action-types';
 
@@ -16,5 +17,6 @@ const courseSagas = [
   takeLatest(actionTypes.UPDATE_COURSE, updateCourseSaga),
   takeLatest(actionTypes.UPDATE_VIDEO, updateVideoSaga),
   takeLatest(actionTypes.UPDATE_COURSE_LAST_WATCHED, updateCourseLastWatchedSaga),
+  takeLatest(actionTypes.ADD_SECTION_TO_COURSE, addSectionToCourseSaga),
 ];
 export default courseSagas;

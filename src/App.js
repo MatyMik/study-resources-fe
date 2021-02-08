@@ -22,6 +22,7 @@ import AllTopics from './topics/all-topics';
 import { loadAllTopics } from './topics/store/actions';
 import YoutubePlayer from './youtube-player/youtube-player';
 import AddCourse from './course/pages/add-course';
+import EditCourse from './course/pages/edit-course';
 import WatchCourse from './course/pages/watch-course';
 
 let token;
@@ -59,6 +60,7 @@ function App() {
         <GuardedRoute path="/add/resource"><AddEditResource /></GuardedRoute>
         <GuardedRoute path="/add/topic"><AddTopic /></GuardedRoute>
         <GuardedRoute path="/add/course"><AddCourse /></GuardedRoute>
+        <GuardedRoute path="/edit/course/:courseId"><EditCourse /></GuardedRoute>
         <GuardedRoute auth={isLoggedIn} path="/resource/book/:pdfId" component={PdfReader} />
         <GuardedRoute auth={isLoggedIn} path="/resource/youtube/:youtubeId" component={YoutubePlayer} />
         <GuardedRoute auth={isLoggedIn} path="/resource/course/:courseId" component={WatchCourse} />
