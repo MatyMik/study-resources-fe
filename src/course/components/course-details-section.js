@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Section from './one-section-component';
 import AddSection from '../containers/add-section-container/add-section-container';
@@ -15,26 +15,44 @@ const AddedSectionsContainer = styled.div`
 
 const NewSectionDiv = styled.div``;
 
-const CourseDetailsComponent = ({ addCourseHandler, disableAdd, setTotalItems }) => {
+const CourseDetailsComponent = ({
+  addCourseHandler, disableAdd, setTotalItems, course,
+}) => {
   const [currentSection, setCurrentSection] = useState({});
   const [addSectionMode, setAddSectionMode] = useState(false);
-  const [videoNumber, setVideoNumber] = useState(1);
-  const [sectionNumber, setSectionNumber] = useState(1);
+  const [videoNumber, setVideoNumber] = useState((course && course.totalItems) || 1);
+  const [sections, setSections] = useState((course && course.sections) || []);
+  const [newSections, setNewSections] = useState([]);
+  const [sectionNumber, setSectionNumber] = useState(sections.length + 1);
+  const [sectionsInitialized, setSectionsInitialized] = useState(false);
   const switchAddSectionMode = () => {
     setAddSectionMode(!addSectionMode);
   };
-  const [sections, setSections] = useState([]);
+  useEffect(() => {
+    if (course && course.sections && course.sections.length > 0 && !sectionsInitialized) {
+      setSections(course.sections);
+      setSectionNumber(course.sections.length + 1);
+      setVideoNumber(course.totalItems + 1);
+      setTotalItems(course.totalItems);
+      setSectionsInitialized(true);
+      setAddSectionMode(true);
+    }
+  }, [course]);
+
   const addSectionHandler = (newSection, lastVideoNumber) => {
-    const currentSections = [...sections];
+    const currentSections = [...newSections];
+    const allSections = [...sections];
+    allSections.push(newSection);
     currentSections.push(newSection);
-    setSections(currentSections);
+    setNewSections(currentSections);
+    setSections(allSections);
     setVideoNumber(lastVideoNumber + 1);
     setSectionNumber(sectionNumber + 1);
     setTotalItems(lastVideoNumber);
   };
 
   const addCourseButtonHandler = () => {
-    addCourseHandler(sections);
+    addCourseHandler(newSections);
   };
   const mappedSections = sections.map((section) => (
     <Section
