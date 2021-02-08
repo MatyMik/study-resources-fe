@@ -3,6 +3,7 @@ import axios from '../../axios';
 import {
   start, fail, addCourseSuccess, getCoursesSuccess,
   getOneCourseSuccess, updateVideoSuccess, updateCourseSuccess,
+  addSectionToCourseSuccess,
 } from './actions';
 
 export function* addCourseSaga(action) {
@@ -66,6 +67,17 @@ export function* updateCourseLastWatchedSaga(action) {
     const response = yield axios.get(`/course/course/${action.courseId}`);
     const { course } = response.data;
     yield put(updateCourseSuccess(course));
+  } catch (err) {
+    yield put(fail(err));
+  }
+}
+
+export function* addSectionToCourseSaga(action) {
+  try {
+    yield put(start());
+    const response = yield axios.put(`/course/update/sections/${action.course.id}`, action.course);
+    const { course } = response.data;
+    yield put(addSectionToCourseSuccess(course));
   } catch (err) {
     yield put(fail(err));
   }

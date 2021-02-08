@@ -32,3 +32,11 @@ export const updateCourseLastWatchedSuccess = (course) => ({
   type: actionTypes.UPDATE_COURSE_LAST_WATCHED_SUCCESS,
   course,
 });
+
+export const setCurrentCourse = (course) => ({ type: actionTypes.SET_CURRENT_COURSE, course });
+
+export const addSectionToCourse = (course) => ({ type: actionTypes.ADD_SECTION_TO_COURSE, course });
+export const addSectionToCourseSuccess = (course) => ({
+  type: actionTypes.ADD_SECTION_TO_COURSE_SUCCESS,
+  course,
+});

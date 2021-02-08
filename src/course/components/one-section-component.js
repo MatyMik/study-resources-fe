@@ -40,7 +40,7 @@ const SectionPart = ({ order, videos, title }) => {
   const changeShowDetailMode = () => {
     setShowDetails(!showDetails);
   };
-  const mappedVideos = videos.map((video) => (
+  const mappedVideos = videos && videos.map((video) => (
     <Video
       key={video.order}
       title={video.title}
