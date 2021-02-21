@@ -9,11 +9,11 @@ import PdfUploader from './pdf-reader/pdf-upload';
 import Auth from './auth/pages/auth';
 import './App.css';
 import {
-  selectJwtToken, selectIsLoggedIn, selectLoading, selectUserId,
+  selectIsLoggedIn, selectLoading, selectUserId,
 } from './auth/store/selectors';
 import Topic from './topics/topic';
 import Navbar from './common/navbar/navbar';
-import axios, { createResponseInterceptor } from './axios';
+import axios from './axios';
 import GuardedRoute from './common/hoc/auth-guard';
 import ActionsMenu from './common/actions-menu/actions-menu';
 import AddEditResource from './topics/pages/add-edit-resource';
@@ -24,16 +24,15 @@ import YoutubePlayer from './youtube-player/youtube-player';
 import AddCourse from './course/pages/add-course';
 import EditCourse from './course/pages/edit-course';
 import WatchCourse from './course/pages/watch-course';
+import UploadCourse from './course/pages/upload-folder';
 
-let token;
 function App() {
-  token = useSelector((state) => selectJwtToken(state));
+  const token = localStorage.getItem('token');
   const isLoggedIn = useSelector((state) => selectIsLoggedIn(state));
   const userId = useSelector((state) => selectUserId(state));
   const loading = useSelector((state) => selectLoading(state));
   const [autoLoginStarted, setAutoLoginStarted] = useState(false);
   const history = useHistory();
-  createResponseInterceptor(history);
   const dispatch = useDispatch();
   useEffect(() => {
     setAutoLoginStarted(true);
@@ -55,7 +54,9 @@ function App() {
       {isLoggedIn ? <Navbar /> : null}
       {isLoggedIn ? <ActionsMenu /> : null}
       <Switch>
+
         <Route path="/auth"><Auth /></Route>
+        <GuardedRoute exact path="/upload/course"><UploadCourse /></GuardedRoute>
         <GuardedRoute exact path="/alltopics"><AllTopics /></GuardedRoute>
         <GuardedRoute path="/add/resource"><AddEditResource /></GuardedRoute>
         <GuardedRoute path="/add/topic"><AddTopic /></GuardedRoute>
