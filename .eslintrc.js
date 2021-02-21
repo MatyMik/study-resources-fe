@@ -32,5 +32,7 @@ module.exports = {
     'no-plusplus': 0,
     'consistent-return': 0,
     'jsx-a11y/media-has-caption': 0,
+    'no-restricted-syntax': 0,
+    'prefer-promise-reject-errors': 0,
   },
 };

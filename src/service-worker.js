@@ -43,7 +43,7 @@ registerRoute(
 
     return true;
   },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+  createHandlerBoundToURL(`${process.env.PUBLIC_URL}/index.html`),
 );
 
 // An example runtime caching route for requests that aren't handled by the
@@ -58,7 +58,7 @@ registerRoute(
       // least-recently used images are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
-  })
+  }),
 );
 
 // This allows the web app to trigger skipWaiting via
@@ -69,4 +69,36 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('backgroundfetchclick', (event) => {
+  event.waitUntil(() => {
+    console.log(event);
+  });
+});
+
+self.addEventListener('fetch', (event) => {
+  console.log(event);
+});
 // Any other custom service worker logic can go here.
+
+self.addEventListener('backgroundfetchsuccess', (event) => {
+  const requests = event.registration.matchAll();
+  console.log(requests);
+  event.waitUntil(() => {
+    console.log(event);
+  });
+});
+
+self.addEventListener('backgroundfetchfail', (event) => {
+  const bgFetch = event.registration;
+
+  console.log(bgFetch);
+  event.waitUntil((async () => {
+    console.log(await event.registration.failureReason);
+    try {
+      const records = await event.registration.matchAll();
+      console.log(records);
+    } catch (err) {
+      console.log(err);
+    }
+  }));
+});

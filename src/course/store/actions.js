@@ -40,3 +40,19 @@ export const addSectionToCourseSuccess = (course) => ({
   type: actionTypes.ADD_SECTION_TO_COURSE_SUCCESS,
   course,
 });
+
+export const uploadCourseToStorage = (files, course, userId, uploadTotal) => ({
+  type: actionTypes.UPLOAD_COURSE_TO_STORAGE,
+  files,
+  course,
+  userId,
+  uploadTotal,
+});
+
+export const uploadCourseToStorageSuccess = (course) => ({
+  type: actionTypes.UPLOAD_COURSE_TO_STORAGE_SUCCESS,
+  course,
+});
+
+export const updateVideoByUrl = (video) => ({ type: actionTypes.UPDATE_VIDEO_BY_URL, video });
+export const updateVideoByUrlSuccess = () => ({ type: actionTypes.UPDATE_VIDEO_BY_URL_SUCCESS });
