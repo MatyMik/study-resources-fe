@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   NavbarContainer,
   NavbarSection,
@@ -18,6 +19,8 @@ import { editTopic } from '../../topics/store/actions';
 import { selectUserId } from '../../auth/store/selectors';
 
 const Navbar = () => {
+  const location = useLocation();
+  if (location.pathname.includes('/resource/course')) return null;
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const topics = useSelector((state) => selectTopics(state));

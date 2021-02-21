@@ -40,9 +40,11 @@ const AddCourse = () => {
     dispatch(addCourse(newCourse));
     setCourseAdded(true);
   };
+  const redirectToFileUpload = () => history.push('/upload/course');
 
   return (
     <AddCourseContainer>
+      <button type="button" onClick={redirectToFileUpload}>Add all in one</button>
       <TitleInputContainer>
         <TitleInput value={title} onChange={titleInputHandler} />
       </TitleInputContainer>

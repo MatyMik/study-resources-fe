@@ -1,8 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { ActionsMenuContainer, ActionsMenuButton } from './actions-menu-components';
 
 const ActionsMenu = () => {
+  const location = useLocation();
+  if (location.pathname.includes('/resource/course')) return null;
   const history = useHistory();
   const addResourceHandler = () => {
     history.push('/add/resource');

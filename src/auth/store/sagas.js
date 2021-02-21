@@ -13,6 +13,7 @@ export function* loginSaga(action) {
     yield put(loginStart());
     const response = yield axios.post('/auth/login', action.authData);
     const { token, userId } = response.data;
+    localStorage.setItem('token', token);
     yield put(loginSuccess(token, userId));
     action.history.push('/');
   } catch (e) {
@@ -70,11 +71,24 @@ export function* refreshTokenSaga() {
 
 export function* autoLoginSaga(action) {
   try {
+    let userId;
     yield put(loginStart());
-    const response = yield axios.get('/auth/refreshtoken');
-    const { token, userId } = response.data;
-    if (token && userId) { yield put(loginSuccess(token, userId)); }
-    action.history.push('/');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      action.history.push('/auth/login');
+      yield put(loginFail(['No token']));
+    } else {
+      const response = yield axios.post('auth/verifytoken', token);
+      userId = response.data.userId;
+      if (token && userId) {
+        yield put(loginSuccess(token, userId));
+        action.history.push('/');
+      } else {
+        action.history.push('/auth/login');
+        localStorage.setItem('token', null);
+        yield put(loginFail(['No token']));
+      }
+    }
   } catch (e) {
     if (e && e.response && e.response.data && e.response.data.errors) {
       const error = e.response.data.errors;

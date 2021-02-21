@@ -4,23 +4,30 @@ import Section from './watch-course-section';
 // import colors from '../../../common/style/colors';
 
 const SideBarContainer = styled.div`
-    border: 1px solid black;
+border: 1px solid #DEDFE0;
 `;
 
 const SideBar = ({
-  sections, setUrl, lastWatched, videoWatchedHandler,
+  sections, setUrl, lastWatched, videoWatchedHandler, listOfWatchedVideos,
 }) => {
-  const mappedSections = sections && sections.map((section) => (
-    <Section
-      key={section.order}
-      order={section.order}
-      title={section.title}
-      videos={section.videos}
-      setUrl={setUrl}
-      lastWatched={lastWatched}
-      videoWatchedHandler={videoWatchedHandler}
-    />
-  ));
+  let lastVideoNumber = 0;
+  const mappedSections = sections && sections.map((section) => {
+    lastVideoNumber += section.videos.length;
+    return (
+      <Section
+        listOfWatchedVideos={listOfWatchedVideos}
+        lastVideoNumber={lastVideoNumber}
+        key={section.order}
+        order={section.order}
+        title={section.title}
+        videos={section.videos}
+        setUrl={setUrl}
+        lastWatched={lastWatched}
+        videoWatchedHandler={videoWatchedHandler}
+        totalVideoLength={section.totalVideoLength}
+      />
+    );
+  });
   return (
     <SideBarContainer>
       { mappedSections }

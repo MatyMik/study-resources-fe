@@ -20,6 +20,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_SECTION_TO_COURSE_SUCCESS:
       return { ...state, loading: false, chosenCourse: action.course };
     case actionTypes.UPDATE_VIDEO_SUCCESS:
+    case actionTypes.UPDATE_VIDEO_BY_URL_SUCCESS:
     default:
       return state;
   }
