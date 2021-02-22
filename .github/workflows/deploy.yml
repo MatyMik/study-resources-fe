@@ -24,7 +24,7 @@ jobs:
           envkey_REACT_APP_STORAGE_SPACE: ${{ secrets.REACT_APP_STORAGE_SPACE}}
           envkey_REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
           envkey_REACT_APP_GOOGLE_API_ID: ${{ secrets.REACT_APP_GOOGLE_API_ID}}
-          envkey_REACT_DO_STORAGE_SPACE: ${{ secrets.REACT_APP_DO_STORAGE_SPACE}}
+          envkey_REACT_APP_DO_STORAGE_SPACE: ${{ secrets.REACT_APP_DO_STORAGE_SPACE}}
           envkey_REACT_APP_JWPLAYER_SCRIPT: ${{ secrets.REACT_APP_JWPLAYER_SCRIPT}}
           envkey_REACT_APP_DO_BUCKET_NAME: ${{ secrets.REACT_APP_DO_BUCKET_NAME}}
           file_name: .env
