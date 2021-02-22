@@ -65,8 +65,9 @@ const WatchCourse = () => {
   const onVideoWatched = () => {
     const videosWatched = [...listOfWatchedVideos];
     videosWatched.push(url);
+    const video = { url, watched: true };
     setListOfWatchedVideos(videosWatched);
-    dispatch(updateVideoByUrl(url));
+    dispatch(updateVideoByUrl(video));
   };
 
   const onVideoEnd = () => {
