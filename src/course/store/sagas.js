@@ -52,7 +52,7 @@ export function* updateVideoSaga(action) {
 export function* updateVideoByUrlSaga(action) {
   try {
     yield put(start());
-    yield axios.put('/course/update/videobyurl', action.video);
+    yield axios.put('/course/update/video/videobyurl', action.video);
     yield put(updateVideoByUrlSuccess());
   } catch (err) {
     yield put(fail(err));
