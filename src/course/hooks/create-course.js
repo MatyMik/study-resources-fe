@@ -11,11 +11,12 @@ const useCourse = (userId) => {
   };
 
   const clearSectionTitle = (title) => {
-    const clearedTitle = /\d+.? ?(.+)[.mp4]?/g.exec(title);
+    const clearedTitle = /\d*\.? ?(.+)[.mp4]?/g.exec(title);
     return clearedTitle[1];
   };
   const clearVideoTitle = (title) => {
-    const clearedTitle = /\d+.? ?(.+).mp4/g.exec(title);
+    const clearedTitle = /\d*\.? ?(.+).mp4/g.exec(title);
+    console.log(clearedTitle);
     return clearedTitle[1];
   };
   const createDurationInMinutes = (duration) => {
