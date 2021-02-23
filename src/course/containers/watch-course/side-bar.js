@@ -5,6 +5,7 @@ import Section from './watch-course-section';
 
 const SideBarContainer = styled.div`
 border: 1px solid #DEDFE0;
+height: 90vh;
 overflow: scroll;
 `;
 
